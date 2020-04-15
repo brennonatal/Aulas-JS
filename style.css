@@ -1,0 +1,50 @@
+body{
+    background-color: darkcyan;
+    text-align: center;
+    color: rgb(11, 72, 184);
+    font-size: 50px;
+    font-weight: bolder;
+    margin: 5% 15%;
+    width: max-content;
+
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+}
+
+h2 {
+    color: rgb(49, 49, 49);
+}
+
+div {
+    margin: 20px;
+    width: 80%;
+    margin-left: 5%;
+}
+
+button {
+    height: max-content;
+    min-width: 10%;
+    padding: 2%;
+    margin: 5%;
+    background-color: darkblue;
+    font-size: 50px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+}
+
+input {
+    height: 50px;
+    width: 700px;
+    padding: 2%;
+    background-color: darkgrey;
+    border-color: black;
+    font-size: 40px;
+   
+}
+
+p{
+    color: rgb(85, 85, 85);
+}
