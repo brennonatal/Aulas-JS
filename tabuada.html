@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Título da Página</title>
+	
+    <link rel='stylesheet' href="style.css"/>
+</head>
+<body>
+	
+	<div>
+        <h1>Tabuada</h1>
+
+		<label for="txtValor">Tabuada do:</label>
+		<input id="txtValor" type="number" />
+	</div>
+	
+	<div>
+		<button type="button" onclick="calcular()">Gerar tabuada!</button>
+	</div>
+	
+	<div id="divPai">
+		<i>Conteúdo inicial</i>
+	</div>
+	
+	<script type="text/javascript">
+		
+		function calcular() {
+			
+			var txtValor = document.getElementById("txtValor");
+			var divPai = document.getElementById("divPai");
+			
+			var valor = parseInt(txtValor.value);
+			
+			var meuHtml = "";
+			
+			
+			
+			// Ponto fraco do innerHTML: os caracteres < e >
+			// Eles devem ser substituídos pelas entidades:
+			// &lt; e &gt;
+			// https://dev.w3.org/html5/html-author/charref
+			
+			var contador = 0;
+			while (contador < 11) {
+			   	var resultado = valor * contador;
+				meuHtml = meuHtml + "<p>" + valor + " x " + contador + " = " +resultado+"</p>";
+				
+				contador = contador + 1;
+			}
+			
+			//alert(meuHtml);
+			
+			divPai.innerHTML = meuHtml;
+			
+			// Não confundir innerHTML com textContent!
+			
+			//divPai.textContent = meuHtml;
+			
+			// innerHTML trata a string como HTML!
+			// textContent trata a string apenas como texto!
+			
+		}
+		
+	</script>
+	
+</body>
+</html>

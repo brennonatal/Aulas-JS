@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Posts</title>
+    <link rel='stylesheet' href="style.css"/>
+
+</head>
+
+<body>
+    <div id="app">
+        <div id="box">
+
+        </div>
+
+         
+        <div>
+            <label for="titulo">Titulo do post</label>
+            <input type="text" id="titulo" />
+        </div>
+        <div>
+            <label for="subTitulo">Subtitulo do post</label>
+            <input type="text" id="subTitulo" />
+        </div>
+        <div>
+            <label for="post">Conteudo do post</label>
+            <input type="text" id="post" />
+        </div>
+        <button type="button" onclick="addPost()">Adicionar</button>
+
+    </div>
+
+    <script>
+
+        function addPost() {
+            var box = document.getElementById('box');
+            var titulo = document.getElementById('titulo');
+            var subtitulo = document.getElementById('subTitulo');
+            var post = document.getElementById('post');
+
+            var txtTitulo = titulo.value;
+            var txtSubTitulo = subtitulo.value;
+            var txtPost = post.value;
+
+            var h1 = document.createElement('h1');
+            var h2 = document.createElement('h2');
+            var p = document.createElement('p');
+
+            var h1txt = document.createTextNode(txtTitulo);
+            var h2txt = document.createTextNode(txtSubTitulo);
+            var ptxt = document.createTextNode(txtPost);
+
+            h1.appendChild(h1txt);
+            h2.appendChild(h2txt);
+            p.appendChild(ptxt);
+
+            box.style.backgroundColor = "#AAA";
+            //document.body.appendChild(h1);
+            box.appendChild(h1);
+            box.appendChild(h2);
+            box.appendChild(p);
+        }
+
+    </script>
+</body>
+
+</html>

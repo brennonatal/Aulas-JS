@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Fibonacci</title>
+    <link rel='stylesheet' href="style.css" />
+</head>
+
+<body>
+    <div>
+
+        <h1>Lista Fibonacci</h1>
+
+        <label for="tipo">Tipo:</label>
+        <input id="tipo" type="text" placeholder="Tipo da Lista(ul || ol)" />
+        <button onclick="gerar()">Gerar lista</button>
+    </div>
+    <div id="lista">
+
+    </div>
+
+    <script>
+
+
+        function gerar() {
+            var txtTipo = document.getElementById('tipo')
+            var lista = document.getElementById('lista');
+
+            var tipo = txtTipo.value;
+
+
+            if (tipo != "ul" && tipo != "ol") {
+                alert("Tipo inválido!");
+                return;
+            }
+
+            var meuHtml = "<" + tipo + ">";
+
+            //switch (tipo) {
+            //  case "ul":
+            // var ulList = document.createElement('ul');
+
+
+            var ant2 = 0;
+            var ant1 = 1;
+
+            for (var i = 0; i < 100; i++) {
+
+                meuHtml += "<li>";
+                meuHtml += ant1;
+                meuHtml += "</li>";
+
+                // Fibonacci...
+                var tmp = ant1 + ant2;
+                ant2 = ant1;
+                ant1 = tmp;
+            }
+
+            meuHtml += "</" + tipo + ">";
+            lista.innerHTML = '<' + meuHtml + '>';
+
+            /* break;
+
+         case "ol":
+             var olList = document.createElement('ol');
+
+             var ant2 = 0;
+             var ant1 = 1;
+
+             for (var i = 0; i < 15; i++) {
+                 var elemento = document.createElement('li');
+                 //elemento.textContent = num;
+                 var txt = document.createTextNode(ant1);
+                 elemento.appendChild(txt);
+                 olList.appendChild(elemento);
+                 var prox = ant1 + ant2;
+                 ant2 = ant1;
+                 ant1 = prox;
+             }
+             lista.appendChild(olList);
+
+             break;
+
+         default:
+             var erro = document.createElement('h1');
+             erro.style.fontSize = '50px';
+             erro.style.color = '#F00';
+
+             var txtErro = "ERRO!"
+             erro = document.createTextNode(txtErro);
+             lista.appendChild(erro);
+
+             break;
+     }*/
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora simples</title>
+    <link rel='stylesheet' href="style.css"/>
+</head>
+
+<body>
+    <div id="app">
+
+        <h1>Calculadora simples</h1>
+
+        <label for="valor1">Valor 1:</label>
+        <input type="text" id="valor1" />
+
+        <div id="botoes">
+            <button onclick="calcular(1)">+</button>
+            <button onclick="calcular(2)">-</button>
+            <button onclick="calcular(3)">x</button>
+            <button onclick="calcular(4)">/</button>
+        </div>
+
+        <label for="valor2">Valor 2:</label>
+        <input type="text" id="valor2" />
+
+        <div id="divRes">
+            <i>Resultado</i>
+        </div>
+
+    </div>
+
+    <script>
+
+
+        function calcular(tipo) {
+
+            var txtTalor1 = document.getElementById('valor1');
+            var txtValor2 = document.getElementById('valor2');
+            var divRes = document.getElementById('divRes');
+            var resultado;
+
+            var x = parseFloat(txtTalor1.value);
+            var y = parseFloat(txtValor2.value);
+
+
+            if (isNaN(x) || isNaN(y)) {
+                divRes.innerHTML = "<i>Dados inválidos</i>";
+                return;
+            }
+
+            switch (tipo) {
+                case 1:
+                    resultado = x + y;
+
+                    break;
+                case 2:
+                    resultado = x - y;
+
+                    break;
+                case 3:
+                    resultado = x * y;
+
+                    break;
+                case 4:
+                    resultado = x / y;
+
+                    break;
+
+            }
+            divRes.innerHTML = resultado;
+        }
+
+    </script>
+
+</body>
+
+</html>
