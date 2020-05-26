@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Título da Página</title>
+	
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	
+	<!-- Bootstrap 3 -->
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<style type="text/css">
+		body {
+			background-color: rgb(0, 153, 255);
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="container-fluid">
+		
+		<div class="row">
+			
+			<div class="col-sm-4 col-sm-offset-4">
+				
+				<h1>Editar livro</h1>
+				
+				<hr />
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Dados do livro
+						</h3>
+					</div>
+					
+					<div class="panel-body">
+						
+						<!--<div class="form-group">
+							<label for="txtId">Id para editar</label>
+							<input type="text" id="txtId" class="form-control" />
+						</div>
+						
+						<button class="btn btn-primary" type="button" onclick="carregar()">Carregar</button>
+						
+						<hr />-->
+						
+						<div class="form-group">
+							<label for="txtTitulo">Titulo</label>
+							<input type="text" id="txtTitulo" class="form-control" />
+						</div>
+						
+						<div class="form-group">
+							<label for="txtAutor">Autor</label>
+							<input type="text" id="txtAutor" class="form-control" />
+						</div>
+						
+						<div class="form-group">
+							<label for="txtEditora">Editora</label>
+							<input type="text" id="txtEditora" class="form-control" />
+						</div>
+						
+						<div class="form-group">
+							<label for="txtAno">Ano</label>
+							<input type="text" id="txtAno" class="form-control" />
+						</div>
+						
+					</div>
+					
+					<div class="panel-footer">
+						
+						<button class="btn btn-primary" type="button" onclick="salvar()">Salvar</button>
+						
+						<a href="index.html" class="btn btn-default">Voltar</a>
+						
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<script type="text/javascript" src="query-string.js"></script>
+	
+	<script type="text/javascript">
+		
+		parseQueryString();
+		
+		function carregar() {
+			//var txtId = $("#txtId");
+			//
+			//var id = parseInt(txtId.val());
+			
+			var id = parseInt(queryString.id);
+			
+			if (isNaN(id) || id <= 0) {
+				alert("Id inválido!");
+				return;
+			}
+			
+			var opcoes = {
+				url: "https://academico.espm.br/testeapi/livro/obter/" + id,
+				method: "GET",
+				
+				success: function (dadosDeRetorno) {
+					var txtTitulo = $("#txtTitulo");
+					var txtAutor = $("#txtAutor");
+					var txtEditora = $("#txtEditora");
+					var txtAno = $("#txtAno");
+					
+					txtTitulo.val(dadosDeRetorno.nome);
+					txtAutor.val(dadosDeRetorno.editora);
+					txtEditora.val(dadosDeRetorno.editora);
+					txtAno.val(dadosDeRetorno.ano);
+			
+				},
+				
+				error: function () {
+					var txtTitulo = $("#txtTitulo");
+					var txtAutor = $("#txtAutor");
+					var txtEditora = $("#txtEditora");
+					var txtAno = $("#txtAno");
+					
+					txtTitulo.val("");
+					txtAutor.val("");
+					txtEditora.val("");
+					txtAno.val("");
+					
+					alert("Livro não encontrado! :(");
+				}
+			};
+			
+			$.ajax(opcoes);
+		}
+		
+		function salvar() {
+			//var txtId = $("#txtId");
+			var txtTitulo = $("#txtTitulo");
+			var txtAutor = $("#txtAutor");
+			var txtEditora = $("#txtEditora");
+			var txtAno = $("#txtAno");
+			
+			//var id = parseInt(txtId.val());
+			var id = parseInt(queryString.id);
+			var nome = txtTitulo.val();
+			var autor = txtAutor.val();
+			var editora = txtEditora.val();
+			var ano = txtAno.val();
+			
+			if (isNaN(id) || id <= 0) {
+				alert("Id inválido!");
+				return;
+			}
+			
+			//if (nome.length == 0 || autor.length == 0) {
+			//if (!nome.length || !autor.length) {
+			if (!nome || !autor || !editora || !ano) {
+				alert("Dados incompletos!");
+				return;
+			}
+			
+			var livro = {
+				id: id,
+				nome: nome,
+				autor: autor,
+				editora: editora,
+				ano: ano
+			};
+			
+			// https://api.jquery.com/jquery.ajax/
+			var opcoes = {
+				url: "https://academico.espm.br/testeapi/livro/alterar",
+				// Existem diversos métodos HTTP!
+				//
+				// Os mais comuns são GET e POST.
+				//
+				// Através do GET não é possível enviar dados para o servidor
+				// dentro do corpo da requisição.
+				//
+				// Já com o POST, é possível enviar dados dentro do corpo
+				// da requisição!
+				method: "POST",
+				data: JSON.stringify(livro),
+				
+				// Parâmetros de configuração específicos do jQuery!
+				processData: false,
+				contentType: "application/json",
+				
+				success: function (dadosDeRetorno) {
+					alert("Sucesso!");
+				},
+				
+				error: function () {
+					alert("Algo deu errado! :(");
+				}
+			};
+			
+			$.ajax(opcoes);
+		}
+		
+		carregar();
+		
+	</script>
+	
+</body>
+</html>

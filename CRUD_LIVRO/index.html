@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Título da Página</title>
+	
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	
+	<!-- Bootstrap 3 -->
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<style type="text/css">
+		body {
+			background-color: rgb(0, 153, 255);
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="container-fluid">
+		
+		<div class="row">
+			
+			<div class="col-sm-10 col-sm-offset-1">
+				
+				<h1>Meus Livros</h1>
+				
+				<hr />
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						
+						<button type="button" class="btn btn-primary" onclick="atualizar()">Atualizar</button>
+						
+						<a href="criar.html" class="btn btn-default">Criar...</a>
+						
+						<img src="load.gif" id="imgLoad" style="display: none;" />
+						
+					</div>
+					
+					<div class="panel-body">
+						
+						<table class="table table-hover">
+							
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Titulo</th>
+									<th>Autor</th>
+									<th>Editora</th>
+									<th>Ano</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							
+							<tbody id="tabela"></tbody>
+							
+						</table>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<script type="text/javascript">
+		
+		function excluir(id) {
+			var opcoes = {
+				url: "https://academico.espm.br/testeapi/livro/excluir/" + id,
+				method: "GET",
+				
+				success: function (dadosDeRetorno) {
+					atualizar();
+				},
+				
+				error: function () {
+					alert("Algo deu errado! :(");
+				}
+			};
+			
+			$.ajax(opcoes);
+		}
+		
+		function atualizar() {
+			
+			$("#imgLoad").show();
+			
+			var opcoes = {
+				url: "https://academico.espm.br/testeapi/livro/listar",
+				
+				success: function (dadosDeRetorno) {
+					
+					$("#imgLoad").hide();
+					
+					var tabela = $("#tabela");
+					
+					var html = "";
+					
+					//Cada linha:
+					//<tr>
+					//	<td>ID</td>
+					//	<td>NOME</td>
+					//	<td>E-MAIL</td>
+					//</tr>
+					
+					for (var i = 0; i < dadosDeRetorno.length; i++) {
+						
+						var livro = dadosDeRetorno[i];
+						
+						html += '<tr>' +
+							'<td>' + livro.id + '</td>' +
+							'<td>' + livro.nome + '</td>' +
+							'<td>' + livro.autor + '</td>' +
+							'<td>' + livro.editora + '</td>' +
+							'<td>' + livro.ano + '</td>' +
+							'<td><a type="button" style="color: #F00" onclick="excluir(' + livro.id + ')">Excluir</a></td>' +
+							'<td><a  href="editar.html?id=' + livro.id + '">Editar</a></td>' +
+							'</tr>';
+						
+					}
+					
+					// Se fosse DOM:
+					//tabela.innerHTML = html;
+					tabela.html(html);
+					
+				},
+				
+				error: function () {
+					$("#imgLoad").hide();
+					alert("Algo deu errado! :(");
+				}
+			};
+			
+			$.ajax(opcoes);
+		}
+		
+		atualizar();
+		
+	</script>
+	
+</body>
+</html>
