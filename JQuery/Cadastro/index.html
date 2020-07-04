@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script type="text/javascript"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <title>Dados cadastrados</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="row">
+ 
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1>Dados cadastrados</h1>
+
+                <hr />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button class="btn btn-primary" onclick="atualizar()" type="submit">Atualizar</button>
+                        <a href="validate.html" class="btn btn-default">Criar</a>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table  table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela">
+                                <!--
+					<tr>
+						<th>123</th>
+						<th>ABC</th>
+						<th>teste@mail.com</th>
+					</tr>
+					<tr>
+						<th>123</th>
+						<th>ABC</th>
+						<th>teste@mail.com</th>
+					</tr>
+				-->
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function atualizar() {
+			
+            var opcoes = {
+                url: "https://academico.espm.br/testeapi/listar",
+                
+                success: function (dadosDeRetorno) {
+                    var tabela = $("#tabela");
+        
+                    var html = "";
+                    
+                    for (let i = 0; i < dadosDeRetorno.length; i++) {
+                        let pessoa = dadosDeRetorno[i];
+                        html += `<tr>
+                        <td>${pessoa.id}</td>
+                        <td>${pessoa.nome}</td>
+                        <td>${pessoa.email}</td>
+                        <td><a onclick="deletar(${pessoa.id})">Excluir</a></td>
+                        <td><a href="update.html?id=${pessoa.id}" style="color: #F00"</a>Editar</td>
+                        </tr>`;
+        
+                    }
+                    tabela.html(html);
+                },
+                
+                error: function () {
+                    alert("Algo deu errado! :( ");
+                }
+            };
+            
+            $.ajax(opcoes);
+            
+        }
+        
+        atualizar();
+        
+        function deletar(id) {
+            var opcoes = {
+				url: "https://academico.espm.br/testeapi/excluir/" + id,
+
+				method: "GET",
+				
+				success: function (dadosDeRetorno) {
+					atualizar();
+				},
+				
+				error: function () {
+					alert("Algo deu errado! :( ");
+				}
+			};
+			
+			$.ajax(opcoes);
+        }
+
+    </script>
+</body>
+
+</html>

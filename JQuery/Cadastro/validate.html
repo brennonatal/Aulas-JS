@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>Create</title>
+	
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+	<!-- Bootstrap 3 -->
+	<link rel="stylesheet" type="text/css"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<script type="text/javascript"
+		src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	
+	<!--
+		jQuery Validate 1.19
+		
+		https://jqueryvalidation.org/documentation/
+		https://jqueryvalidation.org/documentation/#link-list-of-built-in-validation-methods
+		https://jqueryvalidation.org/validate/
+		https://jqueryvalidation.org/reference/
+	-->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/localization/messages_pt_BR.min.js"></script>
+
+	<!--
+		jQuery Mask 1.14.16
+		http://igorescobar.github.io/jQuery-Mask-Plugin/
+		http://igorescobar.github.io/jQuery-Mask-Plugin/docs.html
+	-->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+
+<body>
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+
+				<h1>Meu cadastro</h1>
+
+				<hr />
+
+				<form class="panel panel-default" id="formulario">
+					<div class="panel-heading">
+						<div class="clearfix">
+							<h3 class="panel-title">Dados de cadastro</h3>
+							<a href="index.html" style="float: right;" class="btn btn-default">Voltar</a>
+						</div>
+					</div>
+					<div class="panel-body">
+
+						<div class="form-group">
+							<label for="txtCEP">CEP</label>
+							<input type="text" class="form-control" id="txtCEP" />
+						</div>
+						<div class="form-group">
+							<label for="txtNome">Nome</label>
+							<input type="text" id="txtNome" class="form-control" name="txtNome" />
+						</div>
+
+						<div class="form-group">
+							<label for="txtEmail">E-mail</label>
+							<input type="text" id="txtEmail" class="form-control" name="txtEmail" />
+						</div>
+
+					</div>
+
+					<div class="panel-footer">
+
+						<button class="btn btn-primary btn-block" type="submit">Criar</button>
+
+					</div>
+
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<script src="validate.js"></script>
+
+</body>
+
+</html>

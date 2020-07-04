@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap 3 -->
+
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script type="text/javascript"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+   
+    <!--
+    jQuery Validate 1.19
+    
+    https://jqueryvalidation.org/documentation/
+    https://jqueryvalidation.org/documentation/#link-list-of-built-in-validation-methods
+    https://jqueryvalidation.org/validate/
+    https://jqueryvalidation.org/reference/
+-->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/localization/messages_pt_BR.min.js"></script>
+
+    <!--
+    jQuery Mask 1.14.16
+    http://igorescobar.github.io/jQuery-Mask-Plugin/
+    http://igorescobar.github.io/jQuery-Mask-Plugin/docs.html
+-->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1>Atualizar dados</h1>
+
+                <hr />
+
+                <form class="panel panel-default" id="update">
+                    <div class="panel-heading">
+                        <div class="clearfix">
+                            <h3 class="panel-title">Busca por id</h3>
+                            <a href="index.html" style="float: right;" class="btn btn-default">Voltar</a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                      <!--  <div class="form-group">
+                            <label for="idPessoa">ID:</label>
+                            <input type="text" class="form-control" id="idPessoa" />
+                            <button class="btn btn-default" type="button" onclick="pesquisar()">Buscar</button>
+                        </div>-->
+                        <div class="form-group">
+                            <label for="txtNome">Nome</label>
+                            <input type="text" id="txtNome" class="form-control" name="txtNome" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtEmail">E-mail</label>
+                            <input type="text" id="txtEmail" class="form-control" name="txtEmail" />
+                        </div>
+
+                    </div>
+
+                    <div class="panel-footer">
+
+                        <button class="btn btn-primary btn-block" type="button" onclick="update()">Atualizar</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="query-string.js"></script>
+
+    <script>
+
+        parseQueryString();
+
+        function pesquisar() {
+            //var idPessoa = $("#idPessoa");
+
+           // var id = parseInt(idPessoa.val());
+            var id = parseInt(queryString.id);
+
+            if (isNaN(id) || id <= 0) {
+                alert("Id inválido!");
+                return;
+            }
+
+            var opcoes = {
+				url: "https://academico.espm.br/testeapi/obter/" + id,
+				method: "GET",
+				
+				success: function (dadosDeRetorno) {
+					var txtNome = $("#txtNome");
+					var txtEmail = $("#txtEmail");
+					
+					txtNome.val(dadosDeRetorno.nome);
+					txtEmail.val(dadosDeRetorno.email);
+				},
+				
+				error: function () {
+					var txtNome = $("#txtNome");
+					var txtEmail = $("#txtEmail");
+					
+					txtNome.val("");
+					txtEmail.val("");
+					
+					alert("Pessoa não encontrada! :(");
+				}
+			};
+
+				$.ajax(opcoes);
+
+        }
+
+        function update() {
+            
+            //var txtId = $("#idPessoa");
+			var txtNome = $("#txtNome");
+			var txtEmail = $("#txtEmail");
+            
+            var id = parseInt(queryString.id);
+			//var id = parseInt(txtId.val());
+			var nome = txtNome.val();
+			var emailAAA = txtEmail.val();
+			
+			if (isNaN(id) || id <= 0) {
+				alert("Id inválido!");
+				return;
+			}
+
+			if (!nome || !emailAAA) {
+				alert("Dados incompletos!");
+				return;
+			}
+			
+			var pessoa = {
+				id: id,
+				nome: nome,
+				email: emailAAA
+			};
+			
+			// https://api.jquery.com/jquery.ajax/
+			var opcoes = {
+				url: "https://academico.espm.br/testeapi/alterar",
+
+				method: "POST",
+				data: JSON.stringify(pessoa),
+				
+				processData: false,
+				contentType: "application/json",
+				
+				success: function (dadosDeRetorno) {
+					alert("Sucesso!");
+				},
+				
+				error: function () {
+					alert("Algo deu errado! :( ");
+				}
+			};
+			
+			$.ajax(opcoes);
+        }
+        pesquisar();
+
+    </script>
+
+</body>
+
+</html>
